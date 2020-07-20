@@ -78,14 +78,10 @@ public class OfferController {
 	}
 
 	/**
-	 * Create a new {@link Offer}
+	* Return a list of {@link Offer} filtered by status
 	 * 
 	 * 
-	 * @return Offer - The new created offer
-	 * 
-	 * @throws MerchantNotFoundException When a merchant with the specified id does
-	 *                                   not exist
-	 * @throws InvalidOfferException     When the provided offer object is invalid
+	 * @return A list with all existing offers filtered by status
 	 */
 	@GetMapping(path = Path.OFFERS_BY_STATUS, produces = MediaType.APPLICATION_JSON_VALUE)
 	List<Offer> findOfferByStatus(@RequestParam(name = "merchantid", required = false) Long merchantid,
