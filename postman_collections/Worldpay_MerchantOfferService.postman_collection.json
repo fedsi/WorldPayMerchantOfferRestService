@@ -1,0 +1,456 @@
+{
+	"info": {
+		"_postman_id": "d63b6c8f-a373-44a2-92ed-e7a772c8253b",
+		"name": "Worldpay_MerchantOfferService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SaveMerchant",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "65fd7f69-6127-4fef-a645-20b5f5ddafd7",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"merchantid\", jsonData.id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Merchant name\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/merchants",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"merchants"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetSingleMerchant",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ffcffcea-6402-4c61-88fd-ec876be51842",
+						"exec": [
+							"/*\r",
+							"\r",
+							"pm.test(\"GetSingleMerchant\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.value).to.eql(100);\r",
+							"});\r",
+							"\r",
+							"*/\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/merchants/{{merchantid}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"merchants",
+						"{{merchantid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMerchantList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "10e83961-60d6-4eb8-95dd-42388079181a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/merchants",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"merchants"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateNewOffer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "927d3462-c187-4229-82c8-1018a063a9de",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"offerid\", jsonData.id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"Don't let this offer expire\",\r\n\t\"currency\": \"GBP\",\r\n\t\"price\": \"100.0\",\r\n    \"expirationDate\": \"2020-12-31T23:59:59\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/offers?merchantid={{merchantid}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"offers"
+					],
+					"query": [
+						{
+							"key": "merchantid",
+							"value": "{{merchantid}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetSingleOffer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "902df657-9ff4-47e5-a120-fa475254fa8b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/offers/{{offerid}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"offers",
+						"{{offerid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateOffer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2258dbe3-5531-4faf-99a0-4f7ce35b27a3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"Last chance to get this offer\",\r\n\t\"currency\": \"GBP\",\r\n\t\"price\": \"100.0\",\r\n    \"expirationDate\": \"2020-12-31T23:59:59\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/offers/{{offerid}}?merchantid={{merchantid}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"offers",
+						"{{offerid}}"
+					],
+					"query": [
+						{
+							"key": "merchantid",
+							"value": "{{merchantid}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateAnotherOffer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "357f9925-f37e-4735-9ee0-45247ea35aab",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"offerid\", jsonData.id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"This offer will be cancelled soon\",\r\n\t\"currency\": \"GBP\",\r\n\t\"price\": \"100.0\",\r\n    \"expirationDate\": \"2020-12-31T23:59:59\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/offers?merchantid={{merchantid}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"offers"
+					],
+					"query": [
+						{
+							"key": "merchantid",
+							"value": "{{merchantid}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CancelOffer",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/offers/{{offerid}}?merchantid={{merchantid}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"offers",
+						"{{offerid}}"
+					],
+					"query": [
+						{
+							"key": "merchantid",
+							"value": "{{merchantid}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateExpiredOffer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "91e6461a-3b77-4fc4-a281-f21502b07a70",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Too late, this offer is expired\",\n\t\"currency\": \"GBP\",\n\t\"price\": \"100.0\",\n    \"expirationDate\": \"2020-07-19T23:59:59\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/offers?merchantid={{merchantid}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"offers"
+					],
+					"query": [
+						{
+							"key": "merchantid",
+							"value": "{{merchantid}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetOfferList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e5217464-c220-410c-98ce-3647d13e610f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/offers",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"offers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetActiveOffers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e08d73dd-790e-433d-bb55-f81e1f45419a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/offers/findByStatus?status={{activestatus}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"offers",
+						"findByStatus"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "{{activestatus}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
