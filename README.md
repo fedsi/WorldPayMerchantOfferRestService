@@ -12,11 +12,11 @@ Complete API documentation can be build using the provided ``yaml/MerchantOfferS
 ```
 
 ## Authentication
-Authentication and authorization concerns are ignored in this project
+Authentication and authorization concerns are ignored in this project.
 
 ## Running
 
-Application entry point - _WorldPayMerchantOfferServiceApplication_
+Application entry point -  _WorldPayMerchantOfferServiceApplication_
 
 **POST** - Create a new merchant 
 
