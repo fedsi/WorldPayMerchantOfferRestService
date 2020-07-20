@@ -1,0 +1,324 @@
+swagger: "2.0"
+info:
+  description: "WorldPay assignment. Merchant offer RESTful service"
+  version: "1.0.0"
+  title: "Merchant Offer Service"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "federic.silveri@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:8081"
+basePath: "/"
+tags:
+- name: "Offer"
+  description: "Everything about Offers"
+- name: "Merchant"
+  description: "Everything about Merchant"
+schemes:
+- "http"
+paths:
+  /merchants:
+    post:
+      tags:
+      - "Merchant"
+      summary: "Add a new merchant"
+      description: ""
+      operationId: "addMerchant"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Merchants object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Merchant"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Merchant"
+    get:
+      tags:
+      - "Merchant"
+      summary: "Find all merchants"
+      description: "Returns a list of merchant"
+      operationId: "getMerchants"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Merchant"
+  /merchants/{merchantid}:
+    get:
+      tags:
+      - "Merchant"
+      summary: "Find merchant by ID"
+      description: "Returns a single merchant"
+      operationId: "getMerchantById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "merchantid"
+        in: "path"
+        description: "ID of merchant to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Merchant"
+  /offers:
+    post:
+      tags:
+      - "Offer"
+      summary: "Add a new offer to the store"
+      description: "Create a new Offer"
+      operationId: "saveOffer"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "merchantid"
+        in: "query"
+        description: "Id of merchant that owns the offer"
+        required: true
+        type: "integer"
+        format: "Int64"
+      - in: "body"
+        name: "body"
+        description: "Offer object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Offer"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Offer"
+        "400":
+          description: "Invalid Offer"
+        "404":
+          description: "ID not found"
+    get:
+      tags:
+      - "Offer"
+      summary: "Find all existing offers"
+      description: "Return a list of all existing offers"
+      operationId: "findAllOffers"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "merchantid"
+        in: "query"
+        description: "Id of merchant that owns the offer"
+        required: true
+        type: "integer"
+        format: "Int64"
+      - in: "body"
+        name: "body"
+        description: "Offer object that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/Offer"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Offer"
+        "400":
+          description: "Invalid object"
+        "404":
+          description: "ID not found"
+  /offers/findByStatus:
+    get:
+      tags:
+      - "Offer"
+      summary: "Finds Offers by status"
+      description: "Multiple status values can be provided with comma separated strings"
+      operationId: "findOfferByStatus"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "merchantid"
+        in: "query"
+        description: "Id of merchant that owns the offer"
+        required: false
+        type: "integer"
+        format: "Int64"
+      - name: "status"
+        in: "query"
+        description: "Status values that need to be considered for filter"
+        required: true
+        type: "array"
+        items:
+          type: "string"
+          enum:
+          - "active"
+          - "expired"
+          - "cancelled"
+          default: "active"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Offer"
+        "404":
+          description: "ID not found"
+  /offers/{offerid}:
+    get:
+      tags:
+      - "Offer"
+      summary: "Find offer by ID"
+      description: "Returns a single offer"
+      operationId: "getOffer"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "merchantid"
+        in: "query"
+        description: "Id of merchant that owns the offer"
+        required: false
+        type: "integer"
+        format: "Int64"
+      - name: "offerid"
+        in: "path"
+        description: "ID of offer to return"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Offer"
+        "404":
+          description: "ID not found"
+    put:
+      tags:
+      - "Offer"
+      summary: "Updates an offer"
+      description: "Update an active Offer"
+      operationId: "updateOffer"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "merchantid"
+        in: "query"
+        description: "Id of merchant linked to the offer"
+        required: true
+        type: "integer"
+        format: "Int64"
+      - name: "offerid"
+        in: "path"
+        description: "ID of offer that needs to be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Offer object that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/Offer"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Offer"
+        "400":
+          description: "Invalid object"
+        "404":
+          description: "ID not found"
+    delete:
+      tags:
+      - "Offer"
+      summary: "Deletes a offer"
+      description: "Change the status of an existing active Offer to CANCELLED"
+      operationId: "cancelOffer"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "offerid"
+        in: "path"
+        description: "Offer id to delete"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Offer"
+        "400":
+          description: "Invalid object"
+        "404":
+          description: "ID not found"
+definitions:
+  Merchant:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+        example: "Merchant name"
+      offerList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Offer"
+  Offer:
+    type: "object"
+    required:
+    - "description"
+    - "price"
+    - "currency"
+    - "expirationDate"
+    properties:
+      id:
+        type: "string"
+        readOnly: true
+      description:
+        type: "string"
+        example: "Best offer ever"
+      price:
+        type: "number"
+        example: "100.00"
+      currency:
+        type: "string"
+        example: "EUR"
+      creationDate:
+        type: "string"
+        format: "date-time"
+        example: "2020-07-16T20:00:28Z"
+        description: "offer creation date, created automatically"
+        readOnly: true
+      expirationDate:
+        type: "string"
+        format: "date-time"
+        example: "2020-07-16T20:32:28Z"
+        description: "offer expiration date"
+      status:
+        type: "string"
+        description: "offer status"
+        enum:
+        - "active"
+        - "expired"
+        - "cancelled"
+        readOnly: true
