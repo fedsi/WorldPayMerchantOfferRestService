@@ -37,8 +37,8 @@ New offer must be linked to an existing merchant
 ```
 {
     "description": "Don't let this offer expire",
-	"currency": "EUR",
-	"price": "100.0",
+    "currency": "EUR",
+    "price": "100.0",
     "expirationDate": "2020-12-31T23:59:59"
 }
 ```
@@ -77,8 +77,8 @@ _http://localhost:8081/offers/{{offerid}}?merchantid={{merchantid}}_
 ```
 {
     "description": "Last chance to get this offer",
-	"currency": "EUR",
-	"price": "100.0",
+    "currency": "EUR",
+    "price": "100.0",
     "expirationDate": "2020-12-31T23:59:59"
 }
 ```
